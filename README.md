@@ -2,6 +2,12 @@
 
 A production-ready RAG (Retrieval-Augmented Generation) chatbot system deployed on Netlify with Neon PostgreSQL databases and DeepInfra LLM integration.
 
+## Demo
+
+![Netlify RAG Chatbot Interface](example.png)
+
+*The chatbot interface showing query results with source citations and PMID links*
+
 ## Features
 
 - **Multiple RAG Databases**: Deploy and query multiple specialized RAG databases
