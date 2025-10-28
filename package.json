@@ -1,0 +1,49 @@
+{
+  "name": "netlify-rag-chatbot",
+  "version": "1.0.0",
+  "description": "Production-ready RAG chatbot system with Netlify, Neon PostgreSQL, and DeepInfra LLM integration",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR-USERNAME/netlify-rag-chatbot.git"
+  },
+  "keywords": ["rag", "chatbot", "netlify", "vector-search", "llm", "embeddings", "neon", "postgresql"],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "netlify:dev": "netlify dev",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "npx tsx scripts/migrate.ts",
+    "db:import": "npx tsx scripts/import-rag.ts",
+    "db:import-pipeline": "npx tsx scripts/import-from-rag-pipeline.ts",
+    "test-db-connections": "npx tsx scripts/test-db-connections.ts",
+    "setup-rag-db-schemas": "npx tsx scripts/setup-rag-db-schemas.ts",
+    "setup-single-rag-db-schema": "npx tsx scripts/setup-single-rag-db-schema.ts",
+    "setup-single-rag-db-schema-scibert": "npx tsx scripts/setup-single-rag-db-schema-scibert.ts",
+    "import-to-separate-db": "npx tsx scripts/import-to-separate-db.ts",
+    "import-to-separate-db-large": "npx tsx scripts/import-to-separate-db-large.ts",
+    "import-large-rag-stream": "npx tsx scripts/import-large-rag-stream.ts",
+    "clear-rag-db": "npx tsx scripts/clear-rag-db.ts",
+    "jobs:migrate": "node run-migration.js",
+    "jobs:test": "node test-jobs-db.js",
+    "jobs:setup": "npm run jobs:migrate && npm run jobs:test"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "@netlify/functions": "^2.8.2",
+    "dotenv": "^17.2.2",
+    "drizzle-orm": "^0.44.5",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "autoprefixer": "^10.4.0",
+    "drizzle-kit": "^0.31.4",
+    "postcss": "^8.4.0",
+    "stream-json": "^1.9.1",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}

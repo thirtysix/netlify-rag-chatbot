@@ -1,0 +1,26 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions"
+
+# Configure the background function
+[functions.query-process-background]
+  type = "background"
+  
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+
+# Redirects commented out due to syntax errors
+# [[redirects]]
+#   from = "/.netlify/functions/*"
+#   to = "/api/:splat"
+#   status = 200

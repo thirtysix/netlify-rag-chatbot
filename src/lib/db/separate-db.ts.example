@@ -1,0 +1,75 @@
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import * as schema from "./separate-schema";
+
+// Generate database connection string from base URL and database name
+function getDatabaseUrl(dbName: string): string {
+  const baseUrl = process.env.DATABASE_URL_BASE;
+  if (!baseUrl) {
+    throw new Error('DATABASE_URL_BASE environment variable is required');
+  }
+  return `${baseUrl}/${dbName}?sslmode=require&channel_binding=require`;
+}
+
+// Create database connection for a specific RAG
+export function createRagDbConnection(dbName: string) {
+  const connectionString = getDatabaseUrl(dbName);
+  const sql = neon(connectionString);
+  return drizzle(sql, { schema });
+}
+
+// Available RAG database mappings
+// Add your RAG databases here after deploying them with deploy-new-rag.ts
+export const RAG_DATABASES = {
+  'rag-example-1': 'rag-example-1',
+  'rag-example-2': 'rag-example-2',
+  // Add new RAGs here as needed
+} as const;
+
+// RAG metadata (replaces the main database rags table)
+// Configure your RAG metadata here to match your deployed databases
+export const RAG_METADATA = {
+  'rag-example-1': {
+    id: 'rag-example-1',
+    name: 'Example RAG 1',
+    topic: 'Example Topic',
+    description: 'Example description for your RAG database',
+    dimensions: 768,
+    queryModel: 'sentence-transformers/all-mpnet-base-v2',
+  },
+  'rag-example-2': {
+    id: 'rag-example-2',
+    name: 'Example RAG 2',
+    topic: 'Another Example',
+    description: 'Another example RAG database',
+    dimensions: 768,
+    queryModel: 'sentence-transformers/all-mpnet-base-v2',
+  },
+  // Add new RAGs here as needed
+} as const;
+
+export type RagId = keyof typeof RAG_DATABASES;
+export type RagMetadata = typeof RAG_METADATA[RagId];
+
+// Helper functions for dual-dimension support
+export function getRagConfig(ragId: string) {
+  const config = RAG_METADATA[ragId as RagId];
+  if (!config) {
+    throw new Error(`Unknown RAG: ${ragId}`);
+  }
+  return {
+    queryModel: config.queryModel,
+    dimensions: config.dimensions,
+    name: config.name,
+    description: config.description
+  };
+}
+
+export function getRagDimensions(ragId: string): number {
+  const metadata = RAG_METADATA[ragId as RagId];
+  return metadata?.dimensions || 384; // Default fallback
+}
+
+export function isSciBertRag(ragId: string): boolean {
+  return ragId.includes('-scibert');
+}

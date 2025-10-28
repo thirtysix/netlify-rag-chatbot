@@ -1,0 +1,1 @@
+CREATE INDEX "content_gin_idx" ON "embeddings" USING gin (to_tsvector('english', "content"));

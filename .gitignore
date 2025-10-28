@@ -1,0 +1,46 @@
+# Environment variables and secrets
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Local Netlify folder
+.netlify
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Debug files
+debug-*.js
+*.log
+
+# Database files
+*.db
+*.sqlite
+
+# Private keys and certificates
+*.pem
+*.key
+*.cert
+*.crt
+
+# Temporary files
+tmp/
+temp/
+.cache/
+old/
+
+# OS files
+Thumbs.db

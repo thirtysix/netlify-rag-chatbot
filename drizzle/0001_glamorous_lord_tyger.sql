@@ -1,0 +1,2 @@
+CREATE INDEX "embedding_hnsw_idx" ON "embeddings" USING hnsw ("embedding" vector_cosine_ops) WITH (m=16,ef_construction=64);--> statement-breakpoint
+CREATE INDEX "rag_id_idx" ON "embeddings" USING btree ("rag_id");
