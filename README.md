@@ -4,7 +4,7 @@ A production-ready RAG (Retrieval-Augmented Generation) chatbot system deployed 
 
 ## Demo
 
-![Netlify RAG Chatbot Interface](example.png)
+![Netlify RAG Chatbot Interface](example-screenshot.png)
 
 *The chatbot interface showing query results with source citations and PMID links*
 
