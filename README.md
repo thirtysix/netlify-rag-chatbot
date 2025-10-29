@@ -32,7 +32,7 @@ A production-ready RAG (Retrieval-Augmented Generation) chatbot system deployed 
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/netlify-rag-chatbot.git
+git clone https://github.com/thirtysix/netlify-rag-chatbot.git
 cd netlify-rag-chatbot
 npm install
 ```
