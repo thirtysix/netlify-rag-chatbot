@@ -179,7 +179,7 @@ function renderMainApp() {
                 AI Model:
               </label>
               <select id="model-select" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8" selected>Llama 4 Maverick</option>
+                <option value="deepseek-ai/DeepSeek-V4.1-Flash-1017" selected>DeepSeek V4.1 Flash</option>
                 <option value="openai/gpt-oss-120b">GPT OSS 120b</option>
                 <option value="deepseek-ai/DeepSeek-V3.1">DeepSeek V3.1</option>
                 <option value="Qwen/Qwen3-235B-A22B-Instruct-2507">Qwen3 235B Instruct</option>

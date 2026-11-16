@@ -12,10 +12,18 @@ const DEEPINFRA_API_KEY = process.env.DEEPINFRA_API_KEY;
 const AVAILABLE_MODELS = {
   "Qwen/Qwen3-235B-A22B-Instruct-2507": "Qwen/Qwen3-235B-A22B-Instruct-2507",
   "Qwen/Qwen3-Next-80B-A3B-Instruct": "Qwen/Qwen3-Next-80B-A3B-Instruct",
-  "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+  "deepseek-ai/DeepSeek-V4.1-Flash-1017": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
   "openai/gpt-oss-120b": "openai/gpt-oss-120b",
   "deepseek-ai/DeepSeek-V3.1": "deepseek-ai/DeepSeek-V3.1",
   "moonshotai/Kimi-K2-Instruct-0905": "moonshotai/Kimi-K2-Instruct-0905"
+};
+
+const DEFAULT_MODEL = "deepseek-ai/DeepSeek-V4.1-Flash-1017";
+
+// Per-model call settings. DeepSeek V4.1 Flash with thinking on costs ~10x and
+// breaks the output format, so thinking stays off.
+const MODEL_PARAMS: Record<string, Record<string, unknown>> = {
+  "deepseek-ai/DeepSeek-V4.1-Flash-1017": { top_p: 0.9, chat_template_kwargs: { enable_thinking: false } },
 };
 
 const COMPLEXITY_SETTINGS = {
@@ -298,7 +306,7 @@ async function generateResponse(
   query: string,
   context: string,
   ragName: string,
-  model: string = "deepseek-ai/DeepSeek-V3.1",
+  model: string = DEFAULT_MODEL,
   complexity: string = "complex",
   outputStyle: string = "narrative"
 ): Promise<string> {
@@ -320,6 +328,7 @@ async function generateResponse(
       },
       body: JSON.stringify({
         model: model,
+        ...(MODEL_PARAMS[model] || {}),
         messages: [
           {
             role: "user",
@@ -352,7 +361,7 @@ async function generateResponse(
 async function verifyResponse(
   response: string,
   sources: any[],
-  model: string = "deepseek-ai/DeepSeek-V3.1"
+  model: string = DEFAULT_MODEL
 ): Promise<{ verifiedResponse: string, confidence: number }> {
   const verificationPrompt = `You are a scientific fact-checker. Analyze the following response and verify if each claim is supported by the provided sources.
 
@@ -385,6 +394,7 @@ CONFIDENCE: [0-100 percentage]`;
       },
       body: JSON.stringify({
         model: model,
+        ...(MODEL_PARAMS[model] || {}),
         messages: [{ role: "user", content: verificationPrompt }],
         max_tokens: 800,
         temperature: 0.1,
@@ -540,7 +550,7 @@ export const handler: BackgroundHandler = async (event) => {
     const ragDb = createRagDbConnection(ragId);
 
     // Select model and complexity
-    const selectedModel = model && AVAILABLE_MODELS[model] ? AVAILABLE_MODELS[model] : "deepseek-ai/DeepSeek-V3.1";
+    const selectedModel = model && AVAILABLE_MODELS[model] ? AVAILABLE_MODELS[model] : DEFAULT_MODEL;
     const selectedComplexity = complexity && COMPLEXITY_SETTINGS[complexity] ? complexity : "complex";
     const selectedStrategy = retrievalStrategy || "enhanced";
 
