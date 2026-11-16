@@ -6,7 +6,16 @@
     "type": "git",
     "url": "https://github.com/YOUR-USERNAME/netlify-rag-chatbot.git"
   },
-  "keywords": ["rag", "chatbot", "netlify", "vector-search", "llm", "embeddings", "neon", "postgresql"],
+  "keywords": [
+    "rag",
+    "chatbot",
+    "netlify",
+    "vector-search",
+    "llm",
+    "embeddings",
+    "neon",
+    "postgresql"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -33,7 +42,7 @@
     "@neondatabase/serverless": "^1.0.1",
     "@netlify/functions": "^2.8.2",
     "dotenv": "^17.2.2",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "^0.45.2",
     "tsx": "^4.20.5"
   },
   "devDependencies": {
