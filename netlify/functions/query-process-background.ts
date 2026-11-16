@@ -10,20 +10,24 @@ const DEEPINFRA_API_KEY = process.env.DEEPINFRA_API_KEY;
 // EMBEDDING_MODEL is now dynamic based on RAG selection
 
 const AVAILABLE_MODELS = {
-  "Qwen/Qwen3-235B-A22B-Instruct-2507": "Qwen/Qwen3-235B-A22B-Instruct-2507",
-  "Qwen/Qwen3-Next-80B-A3B-Instruct": "Qwen/Qwen3-Next-80B-A3B-Instruct",
   "deepseek-ai/DeepSeek-V4.1-Flash-1017": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
-  "openai/gpt-oss-120b": "openai/gpt-oss-120b",
-  "deepseek-ai/DeepSeek-V3.1": "deepseek-ai/DeepSeek-V3.1",
-  "moonshotai/Kimi-K2-Instruct-0905": "moonshotai/Kimi-K2-Instruct-0905"
+  "deepseek-ai/DeepSeek-V4-Flash-0731": "deepseek-ai/DeepSeek-V4-Flash-0731",
+  "Qwen/Qwen3.8-Flash": "Qwen/Qwen3.8-Flash",
+  "XiaomiMiMo/MiMo-V2.6-Flash": "XiaomiMiMo/MiMo-V2.6-Flash",
+  "google/gemma-4-31B-it-turbo": "google/gemma-4-31B-it-turbo"
 };
 
 const DEFAULT_MODEL = "deepseek-ai/DeepSeek-V4.1-Flash-1017";
 
-// Per-model call settings. DeepSeek V4.1 Flash with thinking on costs ~10x and
-// breaks the output format, so thinking stays off.
+// Per-model call settings. All run with thinking off: several think by default
+// (Qwen3.8 Flash despite its "non-reasoning" tag), and DeepSeek V4.1 Flash with
+// thinking on costs ~10x and breaks the output format.
 const MODEL_PARAMS: Record<string, Record<string, unknown>> = {
   "deepseek-ai/DeepSeek-V4.1-Flash-1017": { top_p: 0.9, chat_template_kwargs: { enable_thinking: false } },
+  "deepseek-ai/DeepSeek-V4-Flash-0731": { top_p: 0.9, chat_template_kwargs: { enable_thinking: false } },
+  "Qwen/Qwen3.8-Flash": { top_p: 0.8, chat_template_kwargs: { enable_thinking: false } },
+  "XiaomiMiMo/MiMo-V2.6-Flash": { chat_template_kwargs: { enable_thinking: false } },
+  "google/gemma-4-31B-it-turbo": { chat_template_kwargs: { enable_thinking: false } },
 };
 
 const COMPLEXITY_SETTINGS = {

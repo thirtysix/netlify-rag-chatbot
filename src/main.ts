@@ -180,11 +180,10 @@ function renderMainApp() {
               </label>
               <select id="model-select" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="deepseek-ai/DeepSeek-V4.1-Flash-1017" selected>DeepSeek V4.1 Flash</option>
-                <option value="openai/gpt-oss-120b">GPT OSS 120b</option>
-                <option value="deepseek-ai/DeepSeek-V3.1">DeepSeek V3.1</option>
-                <option value="Qwen/Qwen3-235B-A22B-Instruct-2507">Qwen3 235B Instruct</option>
-                <option value="Qwen/Qwen3-Next-80B-A3B-Instruct">Qwen3 Next 80B</option>
-                <option value="moonshotai/Kimi-K2-Instruct-0905">Kimi K2 0905</option>
+                <option value="deepseek-ai/DeepSeek-V4-Flash-0731">DeepSeek V4 Flash</option>
+                <option value="Qwen/Qwen3.8-Flash">Qwen3.8 Flash</option>
+                <option value="XiaomiMiMo/MiMo-V2.6-Flash">MiMo V2.6 Flash</option>
+                <option value="google/gemma-4-31B-it-turbo">Gemma 4 31B Turbo</option>
               </select>
             </div>
             
